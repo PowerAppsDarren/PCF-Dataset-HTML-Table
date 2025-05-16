@@ -12,7 +12,7 @@
         "material-icon-theme.folders.theme": "specific",
         "material-icon-theme.hidesExplorerArrows": false,
         "workbench.colorCustomizations": {
-            "activityBar.activeBackground": "#ba39ad",  
+            "activityBar.activeBackground": "#ba39ad",
             "activityBar.background": "#ba39ad",
             "activityBar.foreground": "#e7e7e7",
             "activityBar.inactiveForeground": "#e7e7e799",

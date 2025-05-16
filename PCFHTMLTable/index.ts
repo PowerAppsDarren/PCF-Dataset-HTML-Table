@@ -113,7 +113,7 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
                     padding: 8px;
                 }
                 #${this._container.id} table tr.selected {
-                    background-color: #e6f2ff;
+                    background-color: #FFFFE0;
                 }
             `;
             this._container.appendChild(styleTag);

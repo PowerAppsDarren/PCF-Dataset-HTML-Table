@@ -39,6 +39,9 @@
             usage="input"
             default-value="1" />
 
+    <property name="SelectedRecordId"
+            of-type="SingleLine.Text"
+            usage="output" />
                       <!-- 
                         <data-set name="sampleDataSet" 
                                   display-name-key="Dataset_Display_Key">-->

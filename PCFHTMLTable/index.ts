@@ -4,6 +4,11 @@ type DataSet = ComponentFramework.PropertyTypes.DataSet;
 
 export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
+    private _container: HTMLDivElement;
+    private _selectedRecordId: string | null = null;
+    private _notifyOutputChanged: () => void;
+    
+
     constructor() {
         // Empty
     }
@@ -35,7 +40,29 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
      */
     public updateView(context: ComponentFramework.Context<IInputs>): void {
-        // Add code to update control view
+
+
+
+
+        /*
+            - Build the skeleton in `updateView`
+                - Replace the generated body with code that 
+                - Creates a `<table>` 
+                - Iterates `context.parameters.Items.sortedRecordIds`, 
+                - Builds a `<thead>` from dataset columns 
+                - A `<tbody>` from row values using `getFormattedValue()`. 
+                - This mirrors the implicit templating engine of Gallery but in raw DOM calls. 
+
+            - Respect property inputs
+                - Conditionally apply a `table { border-collapse:collapse; }` style block only when `context.parameters.ShowGridLines.raw` is true. 
+
+            - Example usage in Canvas
+                - After importing, set ShowGridLines to `false` when embedding the table in a minimalist dashboard where cell borders feel noisy, or set GridLineThickness to `3` to create bold separators for a read-only finance matrix without formula tinkering.
+        */
+
+
+
+
     }
 
     /**

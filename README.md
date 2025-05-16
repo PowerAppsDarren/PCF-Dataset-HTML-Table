@@ -65,7 +65,7 @@ Properties that would be appropriate for a control like this!
 - TwoOptions renders a true/false toggle in Studio
 - Whole.None provides an integer slider
 
->Consider: Non-developers will see friendly check-boxes and number pickers in the right-hand pane of Power Apps Studio, mirroring component custom properties they already use inside Canvas components
+>Consider: canvas app makers will see friendly toggle and number pickers in the right-hand pane of Power Apps Studio, mirroring component custom properties they already use inside Canvas components
 
 ## Step 05: Render the HTML Table
 

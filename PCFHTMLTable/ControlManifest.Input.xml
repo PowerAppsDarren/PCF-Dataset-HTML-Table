@@ -23,35 +23,24 @@
       -->
     </external-service-usage>
 
+
     <!-- dataset node represents a set of entity records on CDS; 
           (Common Data Service) allow more than one datasets -->
     <data-set name="Items" display-name-key="Items" />
-
     <property name="ShowGridLines"
             of-type="TwoOptions.YesNo"
             display-name-key="ShowGridLines"        
             usage="input"
             default-value="true" />
-
     <property name="GridLineThickness"
             of-type="Whole.None"
             display-name-key="GridLineThickness"
             usage="input"
             default-value="1" />
-
     <property name="SelectedRecordId"
             of-type="SingleLine.Text"
             usage="output" />
-                      <!-- 
-                        <data-set name="sampleDataSet" 
-                                  display-name-key="Dataset_Display_Key">-->
-                          <!-- 'property-set' node represents a unique, configurable property that each record in the dataset must provide. -->
-                          <!-- UNCOMMENT TO ADD PROPERTY-SET NODE
-                          <property-set name="samplePropertySet" display-name-key="Property_Display_Key" description-key="Property_Desc_Key" of-type="SingleLine.Text" usage="bound" required="true" />
-                          -->
-                        <!-- </data-set> 
-                        <data-set name="Items" display-name-key="Items" />
-                      -->
+
     <resources>
       <code path="index.ts" order="1"/>
       <!-- UNCOMMENT TO ADD MORE RESOURCES

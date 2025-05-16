@@ -54,12 +54,14 @@ Properties that would be appropriate for a control like this!
         display-name-key="ShowGridLines"        
         usage="input"
         default-value="true" />
-
 <property name="GridLineThickness"
         of-type="Whole.None"
         display-name-key="GridLineThickness"
         usage="input"
         default-value="1" />
+<property name="SelectedRecordId"
+        of-type="SingleLine.Text"
+        usage="output" />
 ```  
 
 - TwoOptions renders a true/false toggle in Studio

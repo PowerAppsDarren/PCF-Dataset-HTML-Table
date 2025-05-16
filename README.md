@@ -27,13 +27,20 @@ Take a look around at what's been created!
 <data-set name="Items" display-name-key="Items" />
 ```  
 
+```PowerShell
+npm run refreshTypes
+```
+
 This registers a binding identical in spirit to the Gallery’s **Items** property, allowing makers to point the control at any table or collection.
 
-Dataset properties bring paging, sorting, selected record tracking, and automatic schema discovery—capabilities the Gallery relies on behind the scenes. Using the same pattern keeps learning curves low for non-coders migrating to PCF.
+Dataset properties bring 
+- Paging 
+- Sorting
+- Selected record tracking
+- Automatic schema discovery—capabilities 
 
-```PowerShell
+...a Dataset type of control relies on behind the scenes. Using the same pattern keeps learning curves low for non-coders migrating to PCF.
 
-```
 ## Step 04: Other Properties are Needed 
 
 Properties that would be appropriate for a control like this!
@@ -44,11 +51,13 @@ Properties that would be appropriate for a control like this!
 ```xml
 <property name="ShowGridLines"
         of-type="TwoOptions.YesNo"
+        display-name-key="ShowGridLines"        
         usage="input"
         default-value="true" />
 
 <property name="GridLineThickness"
         of-type="Whole.None"
+        display-name-key="GridLineThickness"
         usage="input"
         default-value="1" />
 ```  

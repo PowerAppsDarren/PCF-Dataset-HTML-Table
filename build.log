@@ -1,0 +1,8 @@
+
+> pcf-project@1.0.0 build
+> pcf-scripts build
+
+[4:58:19 PM] [build] Initializing...
+[4:58:19 PM] [build] Validating manifest...
+[pcf-scripts] [Error] encountered unexpected error:
+Error

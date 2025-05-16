@@ -7,7 +7,6 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
     private _container: HTMLDivElement;
     private _selectedRecordId: string | null = null;
     private _notifyOutputChanged: () => void;
-    
 
     constructor() {
         // Empty
@@ -32,7 +31,8 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
         state: ComponentFramework.Dictionary,
         container: HTMLDivElement
     ): void {
-        // Add control initialization code
+        this._container = container;
+        this._notifyOutputChanged = notifyOutputChanged;
     }
 
     /**
@@ -40,29 +40,72 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
      */
     public updateView(context: ComponentFramework.Context<IInputs>): void {
+        const table = document.createElement("table");
+        this._container.appendChild(table);
 
+        //
+        // If the dataset is empty, show a message
+        //
+        if (context.parameters.Items.sortedRecordIds.length === 0) {
+            const emptyRow = table.insertRow();
+            const emptyCell = emptyRow.insertCell();
+            emptyCell.colSpan = context.parameters.Items.columns.length;
+            emptyCell.innerText = "No data available";
+            
+            return; // 🔚 (early end of function)
+        }
 
+        //
+        // Build table header
+        //
+        const thead = table.createTHead();
+        const headerRow = thead.insertRow();
+        //
+        // Iterate through columns to create header cells
+        //
+        for (const column of context.parameters.Items.columns) {
+            const th = document.createElement("th");
+            th.innerText = column.displayName;
+            headerRow.appendChild(th);
+        }
 
+        //
+        // Build tbody
+        // 
+        const tbody = table.createTBody();
+        for (const recordId of context.parameters.Items.sortedRecordIds) {
+            const row = tbody.insertRow();
+            const record = context.parameters.Items.records[recordId];
 
-        /*
-            - Build the skeleton in `updateView`
-                - Replace the generated body with code that 
-                - Creates a `<table>` 
-                - Iterates `context.parameters.Items.sortedRecordIds`, 
-                - Builds a `<thead>` from dataset columns 
-                - A `<tbody>` from row values using `getFormattedValue()`. 
-                - This mirrors the implicit templating engine of Gallery but in raw DOM calls. 
+            for (const column of context.parameters.Items.columns) {
+                const cell = row.insertCell();
 
-            - Respect property inputs
-                - Conditionally apply a `table { border-collapse:collapse; }` style block only when `context.parameters.ShowGridLines.raw` is true. 
+                // Shorthand way of implementing an if/then/else       ⬇️                                   ⬇️
+                cell.innerText = record[column.fieldName] !== undefined ? record[column.fieldName].toString() : "";
+            }
 
-            - Example usage in Canvas
-                - After importing, set ShowGridLines to `false` when embedding the table in a minimalist dashboard where cell borders feel noisy, or set GridLineThickness to `3` to create bold separators for a read-only finance matrix without formula tinkering.
-        */
+            row.addEventListener("click", () => {
+                this._selectedRecordId = recordId;
+                this._notifyOutputChanged();  // Tell framework outputs have changed
+            });
+        }
 
+        //
+        // Apply styles based on properties
+        //
+        if (context.parameters.ShowGridLines.raw) {
+            table.style.borderCollapse = "collapse";
+        }
 
+        //
+        // Cleanup: remove previous table if exists
+        //
+        const existingTable = this._container.querySelector("table");
+        if (existingTable) {
+            this._container.removeChild(existingTable);
+        }
 
-
+        this._container.appendChild(table);
     }
 
     /**
@@ -70,7 +113,10 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
      * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as "bound" or "output"
      */
     public getOutputs(): IOutputs {
-        return {};
+        // This is empty but you're using _selectedRecordId
+        return {
+            SelectedRecordId: this._selectedRecordId || ""
+        };
     }
 
     /**

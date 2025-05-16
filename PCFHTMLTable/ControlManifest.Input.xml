@@ -23,7 +23,6 @@
       -->
     </external-service-usage>
 
-
     <!-- dataset node represents a set of entity records on CDS; 
           (Common Data Service) allow more than one datasets -->
     <data-set name="Items" display-name-key="Items" />

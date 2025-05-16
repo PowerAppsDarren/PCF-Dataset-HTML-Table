@@ -43,8 +43,8 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
         // Clear existing content
         this._container.innerHTML = "";
         
-        // Early exit if dataset is loading
-        if (context.parameters.Items.loading) {
+        // Early exit if dataset is undefined or loading
+        if (!context.parameters.Items || context.parameters.Items.loading) {
             const loadingDiv = document.createElement("div");
             loadingDiv.innerText = "Loading...";
             this._container.appendChild(loadingDiv);
@@ -52,6 +52,7 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
         }
         
         const table = document.createElement("table");
+        table.style.width = "100%";
         
         // If the dataset is empty, show a message
         if (context.parameters.Items.sortedRecordIds.length === 0) {
@@ -63,23 +64,18 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
             return;
         }
         
-        //
         // Build table header
-        //
         const thead = table.createTHead();
         const headerRow = thead.insertRow();
-        //
+        
         // Iterate through columns to create header cells
-        //
         for (const column of context.parameters.Items.columns) {
             const th = document.createElement("th");
             th.innerText = column.displayName;
             headerRow.appendChild(th);
         }
 
-        //
         // Build tbody
-        // 
         const tbody = table.createTBody();
         for (const recordId of context.parameters.Items.sortedRecordIds) {
             const row = tbody.insertRow();
@@ -87,22 +83,40 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
 
             for (const column of context.parameters.Items.columns) {
                 const cell = row.insertCell();
-
-                // Shorthand way of implementing an if/then/else       ⬇️                                   ⬇️
-                cell.innerText = record[column.fieldName] !== undefined ? record[column.fieldName].toString() : "";
+                cell.innerText = record.getFormattedValue(column.name);
             }
 
             row.addEventListener("click", () => {
+                // Remove previously selected styling
+                const previouslySelected = tbody.querySelector('tr.selected');
+                if (previouslySelected) previouslySelected.classList.remove('selected');
+                
+                // Add selected styling
+                row.classList.add('selected');
+                
                 this._selectedRecordId = recordId;
-                this._notifyOutputChanged();  // Tell framework outputs have changed
+                this._notifyOutputChanged();
             });
         }
 
-        //
         // Apply styles based on properties
-        //
         if (context.parameters.ShowGridLines && context.parameters.ShowGridLines.raw) {
             table.style.borderCollapse = "collapse";
+            
+            // Add border to cells and headers using GridLineThickness
+            const thickness = context.parameters.GridLineThickness?.raw || 1;
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                #${this._container.id} table td, 
+                #${this._container.id} table th {
+                    border: ${thickness}px solid #ddd;
+                    padding: 8px;
+                }
+                #${this._container.id} table tr.selected {
+                    background-color: #e6f2ff;
+                }
+            `;
+            this._container.appendChild(styleTag);
         }
         
         // Finally, append the completed table

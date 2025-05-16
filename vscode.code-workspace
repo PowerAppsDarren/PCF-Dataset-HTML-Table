@@ -74,5 +74,10 @@
             "editorGroupHeader.tabsBackground": "#f9ecf4",
             "editorGroupHeader.tabsBorder": "#932d89"
         }
+    },
+    "extensions": {
+        "recommendations": [
+            "ghutu.perplexity-ext"
+        ]
     }
 }

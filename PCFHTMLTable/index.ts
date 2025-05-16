@@ -40,21 +40,29 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
      */
     public updateView(context: ComponentFramework.Context<IInputs>): void {
+        // Clear existing content
+        this._container.innerHTML = "";
+        
+        // Early exit if dataset is loading
+        if (context.parameters.Items.loading) {
+            const loadingDiv = document.createElement("div");
+            loadingDiv.innerText = "Loading...";
+            this._container.appendChild(loadingDiv);
+            return;
+        }
+        
         const table = document.createElement("table");
-        this._container.appendChild(table);
-
-        //
+        
         // If the dataset is empty, show a message
-        //
         if (context.parameters.Items.sortedRecordIds.length === 0) {
             const emptyRow = table.insertRow();
             const emptyCell = emptyRow.insertCell();
             emptyCell.colSpan = context.parameters.Items.columns.length;
             emptyCell.innerText = "No data available";
-            
-            return; // 🔚 (early end of function)
+            this._container.appendChild(table);
+            return;
         }
-
+        
         //
         // Build table header
         //
@@ -93,18 +101,11 @@ export class PCFHTMLTable implements ComponentFramework.StandardControl<IInputs,
         //
         // Apply styles based on properties
         //
-        if (context.parameters.ShowGridLines.raw) {
+        if (context.parameters.ShowGridLines && context.parameters.ShowGridLines.raw) {
             table.style.borderCollapse = "collapse";
         }
-
-        //
-        // Cleanup: remove previous table if exists
-        //
-        const existingTable = this._container.querySelector("table");
-        if (existingTable) {
-            this._container.removeChild(existingTable);
-        }
-
+        
+        // Finally, append the completed table
         this._container.appendChild(table);
     }
 

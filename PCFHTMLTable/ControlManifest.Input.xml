@@ -26,20 +26,10 @@
 
     <!-- dataset node represents a set of entity records on CDS; 
           (Common Data Service) allow more than one datasets -->
-    <data-set name="Items" display-name-key="Items" cds-data-set-options="displayCommandBar:true;displayViewSelector:true"/>
-    <property name="ShowGridLines"
-            of-type="TwoOptions.YesNo"
-            display-name-key="ShowGridLines_Key"        
-            usage="input"
-            default-value="true" />
-    <property name="GridLineThickness"
-            of-type="Whole.None"
-            display-name-key="GridLineThickness_Key"
-            usage="input"
-            default-value="1" />
-    <property name="SelectedRecordId"
-            of-type="SingleLine.Text"
-            usage="output" />
+    <data-set name="Items" display-name-key="Items" cds-data-set-options="displayCommandBar:true;displayViewSelector:true" />
+    <property name="SelectedRecordId" of-type="SingleLine.Text" usage="output" />
+    <property name="ShowGridLines" of-type="TwoOptions.YesNo" display-name-key="ShowGridLines" usage="input" default-value="true" />
+    <property name="GridLineThickness" of-type="Whole.None" display-name-key="GridLineThickness" usage="input" default-value="1" />
 
     <resources>
       <code path="index.ts" order="1"/>

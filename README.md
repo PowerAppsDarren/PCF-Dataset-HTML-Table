@@ -100,8 +100,16 @@ npm start
       - Use `console.log` statements to inspect property values and browser DevTools to tweak CSS on the fly, speeding up pixel-perfect adjustments before deployment. 
 
 
+## Step 08: Deploy to Your Environment
+
+- Push directly from the CLI
+    - From the project root run `pac pcf push` to package, upload, and register the control in your default solution. This skips building a managed solution for classroom speed. 
+
+- Import into a Canvas app
+    - Open Power Apps Studio 
+    - ➜ **Insert → Get more components → Code** and add **HtmlTableLab**. 
+    - Drop it onto the screen, set **Items** to `Gallery1.AllItems` or any collection (`ClearCollect(colPeople, People)`), and experiment with the new properties.
+
 ```PowerShell
 
 ```
-
-
